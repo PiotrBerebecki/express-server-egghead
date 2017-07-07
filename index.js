@@ -1,27 +1,36 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const _ = require('lodash');
+const hbs = require('hbs');
+const uppercase = require('./views/helpers/uppercase');
+const propercase = require('./views/helpers/propercase');
 
-const users = [];
+let users;
 fs.readFile(path.join(__dirname, 'users.json'), 'utf8', (err, data) => {
   if (err) throw err;
-  JSON.parse(data).forEach(user => {
-    user.name.full = _.startCase(user.name.first + ' ' + user.name.last);
-    users.push(user);
-  });
+  users = JSON.parse(data);
 });
 
 const app = express();
+app.set('view engine', 'hbs');
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
+hbs.registerHelper('uppercase', uppercase);
+hbs.registerHelper('propercase', propercase);
 
 app.get('/', (req, res) => {
-  const html = users
-    .map(user => {
-      return `<a href="/${user.email}">${user.name.full}</a></br>`;
-    })
-    .join('');
+  // const html = users
+  //   .map(user => {
+  //     return `<a href="/${user.email}">${user.name.full}</a></br>`;
+  //   })
+  //   .join('');
 
-  res.send(html);
+  res.render('home', {
+    pageTitle: 'Handlebars',
+    siteHeading: 'Welcome to Handlebars',
+    pageHeading: 'List of users',
+    users: users,
+    siteFooter: 'Contact us @UsersPage',
+  });
 });
 
 // starting with mary
