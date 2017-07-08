@@ -22,17 +22,20 @@ hbs.registerHelper('propercase', propercase);
 
 app.get('/', (req, res) => {
   res.render('home', {
-    pageTitle: 'Handlebars',
-    siteHeading: 'Welcome to Handlebars',
+    pageTitle: 'List of users',
     pageHeading: 'List of users',
-    siteFooter: 'Contact us @UsersPage',
     users,
   });
 });
 
 app.get('/:username', (req, res) => {
   const { username } = req.params;
-  res.render('user', { username });
+  res.render('user', {
+    pageTitle: 'User pages',
+    pageHeading: 'User page',
+    username,
+    layout: false,
+  });
 });
 
 const PORT = process.env.PORT || 3000;

@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{{pageTitle}}</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-  {{> header}}
-
-  <h2>{{uppercase pageHeading}}</h2>
-  {{#each users}}
-  <div>
-    <img src="images/{{this.username}}_sm.jpg" alt="avatar">
-    <a href="{{this.username}}">{{propercase this.name.first}} {{propercase this.name.last}}</a>
-  </div>
-  {{/each}}
-
-  {{> footer}}
-
-</body>
-</html>
+<h1>Welcome to handlebars</h1>
+<h2>{{uppercase pageHeading}}</h2>
+{{#each users}}
+<div>
+  <img src="images/{{this.username}}_sm.jpg" alt="avatar">
+  <a href="{{this.username}}">{{propercase this.name.first}} {{propercase this.name.last}}</a>
+</div>
+{{/each}}
